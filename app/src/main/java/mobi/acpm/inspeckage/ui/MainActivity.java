@@ -19,10 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-
 import java.io.File;
 
 import mobi.acpm.inspeckage.Module;
@@ -69,36 +65,6 @@ public class MainActivity extends AppCompatActivity
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE}, 0);
             }
 
-            AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
-                @Override
-                protected String doInBackground(Void... params) {
-                    AdvertisingIdClient.Info idInfo = null;
-                    try {
-                        idInfo = AdvertisingIdClient.getAdvertisingIdInfo(getApplicationContext());
-                    } catch (GooglePlayServicesNotAvailableException e) {
-                        e.printStackTrace();
-                    } catch (GooglePlayServicesRepairableException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    String advertId = null;
-                    try{
-                        advertId = idInfo.getId();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    return advertId;
-                }
-                @Override
-                protected void onPostExecute(String advertId) {
-                    SharedPreferences.Editor editor = mPrefs.edit();
-                    editor.putString(Config.SP_ADS_ID,advertId);
-                    editor.apply();
-                    //Toast.makeText(getApplicationContext(), advertId, Toast.LENGTH_SHORT).show();
-                }
-            };
-            task.execute();
 
         }else{
             File inspeckage = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + Config.P_ROOT);
