@@ -11,6 +11,7 @@ Features
 ---------------
 
 With Inspeckage, we can get a good amount of information about the application's behavior:
+This branch adapt android 8.0
 
 #### Information gathering 
 
